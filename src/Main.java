@@ -1,15 +1,9 @@
 import componentsForMain.SwitchMethod;
-
-import javax.swing.*;
+import gui.ButtonGui;
 
 public class Main {
 
     public static void main(String args[]) {
-        //Object
-        SwitchMethod runSwitch = new SwitchMethod();
-
-        String chosenOption = JOptionPane.showInputDialog("Which class to run?");
-
-        runSwitch.runSwitch(Integer.parseInt(chosenOption));
+        new ButtonGui();
     }
 }
