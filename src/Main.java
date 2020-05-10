@@ -1,7 +1,6 @@
-import classOrganiser.ConditionalOperators;
 import componentsForMain.SwitchMethod;
 
-import java.util.Scanner;
+import javax.swing.*;
 
 public class Main {
 
@@ -9,12 +8,7 @@ public class Main {
         //Object
         SwitchMethod runSwitch = new SwitchMethod();
 
-        //Scanner
-        Scanner chooseClass = new Scanner(System.in);
-        String chosenOption;
-
-        System.out.println("Which class to run?");
-        chosenOption = chooseClass.nextLine();
+        String chosenOption = JOptionPane.showInputDialog("Which class to run?");
 
         runSwitch.runSwitch(Integer.parseInt(chosenOption));
     }

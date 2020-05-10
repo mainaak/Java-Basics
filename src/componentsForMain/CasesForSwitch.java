@@ -34,8 +34,9 @@ public class CasesForSwitch {
     //Enum
     protected void caseThree() {
         for (Enumerator enumeratorObject : Enumerator.values())
-            System.out.printf("%s\t%s\t%s\t%s\n\n\n", enumeratorObject.getCar(), enumeratorObject,
+            System.out.printf("%s\t%s\t%s\t%s\n", enumeratorObject.getCar(), enumeratorObject,
                     enumeratorObject.getFuelType(), enumeratorObject.getCarType());
+        System.out.println("\n\n\n");
 
         for (Enumerator enumerator : EnumSet.range(Enumerator.GLC, Enumerator.GT2RS))
             System.out.printf("%s\t%s\t%s\t%s\n", enumerator.getCar(), enumerator,

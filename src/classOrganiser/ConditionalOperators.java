@@ -1,5 +1,7 @@
 package classOrganiser;
 
+import javax.swing.*;
+
 public class ConditionalOperators extends Variables {
 
     public ConditionalOperators() {
@@ -13,8 +15,8 @@ public class ConditionalOperators extends Variables {
         System.out.println("Enter value2: ");
         value[1] = input.nextInt();
 
-        System.out.println(value[0] > value[1] ? greaterMethod() : smallerMethod());
-        System.out.println("\n\n\n");
+        JOptionPane.showMessageDialog(null, value[0] > value[1] ? greaterMethod() : smallerMethod(), "RESULT", JOptionPane.PLAIN_MESSAGE);
+        //System.out.println(value[0] > value[1] ? greaterMethod() : smallerMethod());
     }
 
     public String greaterMethod() {
