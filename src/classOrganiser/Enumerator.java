@@ -12,7 +12,6 @@ public enum Enumerator {
     private String car;
     private String fuelType;
     private String carType;
-    ;
 
     Enumerator(String car, String fuelType, String carType) {
         this.car = car;

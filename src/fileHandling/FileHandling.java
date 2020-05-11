@@ -9,6 +9,17 @@ public class FileHandling {
     Cars[] cars = new Cars[4];
     Scanner scanner;
 
+    public FileHandling() throws FileNotFoundException {
+        createFile();
+        addEntry("Mercedes-Benz", "C63", "2018");
+        addEntry("Honda", "City", "2009");
+        addEntry("VW", "Vento", "2014");
+        closeFile();
+        openFile();
+        readFile();
+        printCars();
+    }
+
     private Formatter formatter;
 
     public void createFile() throws FileNotFoundException {
