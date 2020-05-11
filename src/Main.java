@@ -1,9 +1,8 @@
-import javaIntermediate.Recursion;
-import javaIntermediate.StringMethods;
+import javaIntermediate.LinkedLists;
 
 public class Main {
 
     public static void main(String args[]) {
-        new StringMethods("a","a");
+        new LinkedLists();
     }
 }
