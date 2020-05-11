@@ -4,6 +4,6 @@ import javaIntermediate.StringMethods;
 public class Main {
 
     public static void main(String args[]) {
-        new Recursion();
+        new StringMethods("a","a");
     }
 }
