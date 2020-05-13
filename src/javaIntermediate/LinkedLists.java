@@ -52,9 +52,9 @@ public class LinkedLists {
         addArrayToList(stringArray2, linkedList2);
 
         printMe(linkedList1);
-        //removeStuff(linkedList1, 1, 3);
-        //printMe(linkedList1);
-        //reverseMe(linkedList1);
+        removeStuff(linkedList1, 1, 3);
+        printMe(linkedList1);
+        reverseMe(linkedList1);
         System.out.println("reverseMe2()");
         reverseMe2(linkedList1.size(),linkedList1);
 
