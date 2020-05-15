@@ -2,6 +2,8 @@ package Networks;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -11,32 +13,36 @@ import java.net.Socket;
 
 public class Server extends JFrame {
 
-    private JTextField userInput;
-    private JTextArea chattingWindow;
+    private JTextField userText;
+    private JTextArea chatWindow;
     private ObjectOutputStream outStream;
     private ObjectInputStream inStream;
     private ServerSocket serverSocket;
     private Socket socket;
 
     public Server() {
-        super("Instant Messenger");
+        super("SERVER");
         //Creating a userInput on GUI
-        userInput = new JTextField();
+        userText = new JTextField();
         //Cannot type anything unless you are connected
-        userInput.setEditable(false);
+        userText.setEditable(false);
         //Adding actionListener to the JTextField
-        userInput.addActionListener(e -> {
-            //Sending text we typed into the JTextField
-            sendText(e.getActionCommand());
-            //Setting chat to blank after sending the text
-            userInput.setText("");
-        });
-        //Adding JTextField
-        add(userInput, BorderLayout.NORTH);
+        userText.addActionListener(
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        sendMessage(e.getActionCommand());
+                        userText.setText("");
+                    }
+                }
+        );
+
+                //Adding JTextField
+                add(userText, BorderLayout.NORTH);
 
         //Creating a JTextArea for chatWindow
-        chattingWindow = new JTextArea();
-        add(new JScrollPane(chattingWindow));
+        chatWindow = new JTextArea();
+        add(new JScrollPane(chatWindow));
         setSize(300, 150);
         setVisible(true);
     }
@@ -45,15 +51,15 @@ public class Server extends JFrame {
     public void startRunning() {
         try {
             //Assigning a port number and connection limit to the ServerSocket
-            serverSocket = new ServerSocket(8000, 100);
+            serverSocket = new ServerSocket(6789, 100);
 
             while (true) {
                 try {
-                    connectionAwaited();
+                    waitForConnection();
                     setupStreams();
                     whileChatting();
                 } catch (EOFException eofException) {
-                    showMessage("\nServer ended the connection!");
+                    showMessage("\n Server ended the connection! ");
                 } finally {
                     //Close all the open processes and sockets
                     closeOperation();
@@ -66,8 +72,8 @@ public class Server extends JFrame {
     }
 
     //Wait for connection
-    private void connectionAwaited() throws IOException {
-        showMessage("Waiting for connection");
+    private void waitForConnection() throws IOException {
+        showMessage("Waiting for connection...\n");
         socket = serverSocket.accept();
         showMessage("Now connected to " + socket.getInetAddress().getHostName());
     }
@@ -80,26 +86,26 @@ public class Server extends JFrame {
 
         //Setting data to come into our system
         inStream = new ObjectInputStream(socket.getInputStream());
-        showMessage("\nStreams are now setup!");
+        showMessage("\nStreams are now setup!\n");
     }
 
-    private void whileChatting() {
+    private void whileChatting() throws IOException {
         String message = "You are now connected";
         showMessage(message);
         ableToType(true);
         do {
             try {
                 message = (String) inStream.readObject();
-                System.out.println("\n " + message);
-            } catch (ClassNotFoundException | IOException classNotFoundException) {
+                showMessage("\n" + message);
+            } catch (ClassNotFoundException classNotFoundException) {
                 showMessage("\nUser sent invalid character");
             }
-        } while (!message.equals("CLIENT - END"));
+        } while (!message.equals("Client - END"));
     }
 
     //To close streams and sockets after chatting
     private void closeOperation() {
-        showMessage("\nClosing Connections");
+        showMessage("\nClosing Connections...\n");
         ableToType(false);
         try {
             outStream.close();
@@ -110,24 +116,36 @@ public class Server extends JFrame {
         }
     }
 
-    private void sendText(String message) {
+    private void sendMessage(String message) {
         try {
-            outStream.writeObject("Server: " + message);
+            outStream.writeObject("Server - " + message);
             outStream.flush();
-            showMessage("Server: " + message);
+            showMessage("\nServer - " + message);
         } catch (IOException ioException) {
-            chattingWindow.append("\nError: Cannot send message");
+            chatWindow.append("\nError: Cannot send message");
         }
     }
 
     //Updates chat window
     private void showMessage(final String text) {
-        SwingUtilities.invokeLater(() -> chattingWindow.append(text));
+        SwingUtilities.invokeLater(
+                new Runnable() {
+                    @Override
+                    public void run() {
+                        chatWindow.append(text);
+                    }
+                }
+        );
     }
 
     //Allow user to type into the box
     private void ableToType(final boolean tof){
-        SwingUtilities.invokeLater(()->userInput.setEditable(tof));
-    }
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                userText.setEditable(true);
+            }
+        });
 
+    }
 }
