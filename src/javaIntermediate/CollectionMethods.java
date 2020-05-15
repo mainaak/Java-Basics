@@ -5,22 +5,17 @@ import java.util.*;
 public class CollectionMethods {
 
     public CollectionMethods() {
-        //Sorting in ascending after converting back to String[]
-        for (String item : sortAscending()) {
-            System.out.print(item + " ");
-        }
-
-        for (String item : sortDescending()) {
-            System.out.print(item + " ");
-        }
-
+        sortAscending();
+        sortDescending();
         reverseArray();
         copyList();
         fillList();
         addLists();
+        frequencyOfAnItem();
+        disjointsInTwoLists();
     }
 
-    private String[] sortAscending() {
+    private void sortAscending() {
         System.out.println("\nSorting in ascending order:");
         //Creating a string array and adding it into a list
         String[] stringArray = {"Nepal", "India", "China", "Pakistan", "Russia", "Sri Lanka", "England"};
@@ -30,15 +25,18 @@ public class CollectionMethods {
         Collections.sort(stringList);
         //Converting back to String[]
         stringArray = stringList.toArray(new String[stringList.size()]);
-        return stringArray;
+        for (String string : stringArray)
+            System.out.print(string + " ");
     }
 
-    private List<String> sortDescending() {
+    private void sortDescending() {
         System.out.println("\nSorting in descending order");
         String[] stringArray = {"Nepal", "India", "China", "Pakistan", "Russia", "Sri Lanka", "England"};
         List<String> stringList = Arrays.asList(stringArray);
         Collections.sort(stringList, Collections.reverseOrder());
-        return stringList;
+        ListIterator listIterator = stringList.listIterator();
+        while (listIterator.hasNext())
+            System.out.print(listIterator.next() + " ");
     }
 
     private void reverseArray() {
@@ -79,5 +77,31 @@ public class CollectionMethods {
         Collections.addAll(stringList2, stringArray1);
         Collections.sort(stringList2);
         System.out.println("Adding List:\n" + stringList2);
+    }
+
+    private void frequencyOfAnItem() {
+        System.out.println("Calculating s in Mississippi:");
+        Character[] character = {'m', 'i', 's', 's', 'i', 's', 's', 'i', 'p', 'p', 'i'};
+        List<Character> characterList = new LinkedList<>(Arrays.asList(character));
+        System.out.println(Collections.frequency(characterList, 's'));
+    }
+
+    private void disjointsInTwoLists(){
+        System.out.println("Calculating if two Strings have common alphabets:");
+        Character[] character1 = {'m', 'i', 's', 's', 'i', 's', 's', 'i', 'p', 'p', 'i'};
+        Character[] character2 = {'g','u','e','t','t','a'};
+
+        List<Character> characterList1 = Arrays.asList(character1);
+        List<Character> characterList2 = Arrays.asList(character2);
+
+        String[] string1 = characterList1.toArray(new String[characterList1.size()]);
+
+        if (Collections.disjoint(characterList1,characterList2)){
+            System.out.println(string1.toString() +" & "+characterList2+" have no character in common");
+        }
+        else{
+            System.out.println(characterList1+" & "+characterList2+" have characters in common");
+        }
+        //make queing system using queue
     }
 }
