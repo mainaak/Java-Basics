@@ -1,4 +1,4 @@
-package AppletsAndNetworks;
+package AppletsAndHTML;
 
 public class ImplementingThread implements Runnable {
 

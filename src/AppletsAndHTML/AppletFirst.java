@@ -1,4 +1,4 @@
-package AppletsAndNetworks;
+package AppletsAndHTML;
 
 import java.applet.Applet;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package AppletsAndNetworks;
+package AppletsAndHTML;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
