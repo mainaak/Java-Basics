@@ -1,4 +1,4 @@
-package javaIntermediate;
+package AppletsAndNetworks;
 
 public class ImplementingThread implements Runnable {
 
