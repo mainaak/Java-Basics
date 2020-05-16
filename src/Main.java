@@ -11,7 +11,6 @@ public class Main {
         carsListObject.addIntoTheList(new Mercedes("AWD","G55 AMG",2025));
         carsListObject.addIntoTheList(new BMW("RWD","530D MSport",2022));
 
-        System.out.println(cars.toString());
         System.out.println(carsListObject.getCarsList());
     }
 }
